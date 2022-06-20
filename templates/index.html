@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Choose the sector by image</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/styles.css') }}">
+  </head>
+  <body>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <form id = "hidden_form_sector" method = "post" action = "/sector_picked" target="_blank">
+      <input type = "hidden" name = "image_id" value = "" />
+      <input type = "hidden" name = "key2" value = "" />
+    </form>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6 text-center">
+          <h2>Please, select one sector image</h2>
+        </div>
+        <div class="col-3"></div>
+      </div>
+      <div class="row">
+
+        {% for i in range(1, 120) %}
+        {% set img_name = 'img/' + i|string + '.jpg' %}
+        <div class="col-12 col-sm-6 col-lg-3 mb-4">
+          <div class="tile">
+            <a class="picture" image_id="{{i}}">
+              <img
+                src="{{url_for('static', filename=img_name)}}"
+                alt=""
+                class="img-two"
+              />
+            </a>
+          </div>
+        </div>
+
+        {% endfor %}
+
+      </div>
+    </div>
+
+    <script>
+      $(".picture").click(function () {
+
+      var image_id = $(this).attr("image_id");
+
+      $("#hidden_form_sector").find("[name=image_id]").val(image_id);
+
+      $("#hidden_form_sector").submit();
+
+    });
+    </script>
+  </body>
+</html>
