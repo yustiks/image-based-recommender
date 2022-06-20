@@ -1,0 +1,63 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+html,
+body {
+  position: relative;
+}
+
+body {
+  overflow-y: auto;
+  min-height: 100vh;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+.tile {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.tile .picture {
+  height: inherit;
+  width: inherit;
+}
+
+.tile img {
+  width: inherit;
+  height: inherit;
+  object-fit: cover;
+  transition: all 0.2s;
+}
+
+.tile img:hover {
+  filter: brightness(50%);
+  transform: scale(1.1);
+}
+
+th.rotate {
+  height:80px;
+  white-space: nowrap;
+  position:relative;
+}
+
+th.rotate > div {
+  transform: rotate(90deg);
+  position:absolute;
+  left:0;
+  right:0;
+  top: 90px;
+  margin:auto;
+
+}
