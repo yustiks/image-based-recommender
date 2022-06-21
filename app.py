@@ -1,5 +1,3 @@
-import pickle
-
 import numpy as np
 import pandas as pd
 from flask import Flask, render_template
@@ -8,7 +6,8 @@ from flask import request
 df = pd.read_csv('static/db/train.csv')
 big_array = np.load('static/db/big_array.npy')
 # load the model from disk
-loaded_model = pickle.load(open('static/db/KNN_model.sav', 'rb'))
+# loaded_model = pickle.load(open('static/db/KNN_model.sav', 'rb'))
+from sklearn.neighbors import NearestNeighbors
 
 application = Flask(__name__)
 
@@ -25,14 +24,14 @@ def recommended_crags():
         image_id = int(request.form['image_id'])
         metric_name = 'cosine'
         X = np.array(big_array)
-        # nbrs = NearestNeighbors(n_neighbors=6,
-        #                        algorithm='brute',
-        #                        metric=metric_name
-        #                        ).fit(X)
-        # distances, indices = nbrs.kneighbors([X[image_id - 1]], return_distance=True)
-        distances, neighbours_id = loaded_model.kneighbors([X[image_id - 1]],
-                                                           n_neighbors=6,
-                                                           return_distance=True)
+        nbrs = NearestNeighbors(n_neighbors=6,
+                                algorithm='brute',
+                                metric=metric_name
+                                ).fit(X)
+        distances, neighbours_id = nbrs.kneighbors([X[image_id - 1]], n_neighbors=6, return_distance=True)
+        # distances, neighbours_id = loaded_model.kneighbors([X[image_id - 1]],
+        #                                                   n_neighbors=6,
+        #                                                   return_distance=True)
         distances = distances[0]
         neighbours_id = neighbours_id[0]
         crags_name = []
