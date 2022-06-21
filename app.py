@@ -17,11 +17,6 @@ def index():
     return render_template('index.html')
 
 
-@application.route('/gallery', methods=('GET', 'POST'))
-def gallery():
-    return render_template('gallery.html')
-
-
 @application.route("/sector_picked", methods=('GET', 'POST'))
 def recommended_crags():
     if request.method == 'POST':
